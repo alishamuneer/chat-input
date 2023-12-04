@@ -21,7 +21,7 @@ npm install
 ## Start development
 
 ```sh
-npm run watch
+npm run start
 ```
 
 ## Build for production
