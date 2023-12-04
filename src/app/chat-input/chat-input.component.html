@@ -1,0 +1,198 @@
+<div
+  class="w-full items-start md:max-w-5xl h-auto mx-auto flex px-4 md:px-0"
+>
+  <button
+    type="button"
+    class="bg-blue-600 text-white p-2 text-sm rounded flex gap-1 items-center justify-center whitespace-nowrap -translate-x-2"
+    (click)="changeBtnText('New Topic')"
+  >
+    <svg
+      class="fill-white w-4 h-4"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+    >
+      <path
+        d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"
+      />
+    </svg>
+    {{ btnText }}
+  </button>
+
+  <form class="w-full h-fit">
+    <div
+      [ngClass]="{
+        focus: isTextareaFocused,
+        nonFocus: !isTextareaFocused
+      }"
+      [class.focus]="isTextareaFocused"
+      [class.nonFocus]="!isTextareaFocused"
+      class="w-full mb-4 rounded-lg bg-white h-fit transition-all ease-in-out duration-150"
+    >
+      <div class="w-full px-4 py-2 bg-white rounded-t-lg h-fit">
+        <textarea
+          #editorRef
+          id="editor"
+          [(ngModel)]="textareaContent"
+          (input)="changeHeight()"
+          (focus)="onTextareaFocus()"
+          (blur)="onTextareaBlur()"
+          style="resize: none"
+          [name]="placeholder"
+          class="w-full text-sm text-gray-900 outline-none py-1 pl-1 min-h-[20px] max-h-[120px]"
+          [style.height.px]="textareaHeight"
+          [placeholder]="placeholder"
+          required
+        ></textarea>
+      </div>
+      <div class="flex items-center justify-between px-3 py-2">
+        <div
+          class="flex flex-col sm:flex-row gap-2 ps-0 rtl:space-x-reverse sm:ps-2"
+        >
+          <button
+            type="button"
+            [ngClass]="{
+              active: placeholder === 'Query internal knowledge',
+              nonActive: placeholder !== 'Query internal knowledge'
+            }"
+            class="flex gap-0.5 items-center sm:justify-center text-xs font-medium relative group transition-colors ease-in-out p-1 rounded duration-200"
+            (click)="changePlaceholderText('Query internal knowledge')"
+          >
+            <span>
+              <svg
+                class="w-5 h-5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="32"
+                  d="M256 160c16-63.16 76.43-95.41 208-96a15.94 15.94 0 0 1 16 16v288a16 16 0 0 1-16 16c-128 0-177.45 25.81-208 64c-30.37-38-80-64-208-64c-9.88 0-16-8.05-16-17.93V80a15.94 15.94 0 0 1 16-16c131.57.59 192 32.84 208 96Zm0 0v288"
+                />
+              </svg>
+            </span>
+            Internal Knowledge
+            <h1
+              class="absolute -left-2 right-0 text-xs -top-7 w-fit bg-gray-800 text-gray-50 whitespace-nowrap px-1 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-200 pointer-events-none"
+            >
+              Query internal knowledge
+            </h1>
+          </button>
+          <button
+            type="button"
+            [ngClass]="{
+              active: placeholder === 'Query Web Research',
+              nonActive: placeholder !== 'Query Web Research'
+            }"
+            class="flex gap-0.5 items-center sm:justify-center text-gray-400 text-xs font-medium relative group transition-colors ease-in-out p-1 rounded duration-200"
+            (click)="changePlaceholderText('Query Web Research')"
+          >
+            <span>
+              <svg
+                class="w-5 h-5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 256 256"
+              >
+                <path
+                  fill="currentColor"
+                  d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm-26.37 144h52.74C149 186.34 140 202.87 128 215.89c-12-13.02-21-29.55-26.37-47.89ZM98 152a145.72 145.72 0 0 1 0-48h60a145.72 145.72 0 0 1 0 48Zm-58-24a87.61 87.61 0 0 1 3.33-24h38.46a161.79 161.79 0 0 0 0 48H43.33A87.61 87.61 0 0 1 40 128Zm114.37-40h-52.74C107 69.66 116 53.13 128 40.11c12 13.02 21 29.55 26.37 47.89Zm19.84 16h38.46a88.15 88.15 0 0 1 0 48h-38.46a161.79 161.79 0 0 0 0-48Zm32.16-16h-35.43a142.39 142.39 0 0 0-20.26-45a88.37 88.37 0 0 1 55.69 45ZM105.32 43a142.39 142.39 0 0 0-20.26 45H49.63a88.37 88.37 0 0 1 55.69-45ZM49.63 168h35.43a142.39 142.39 0 0 0 20.26 45a88.37 88.37 0 0 1-55.69-45Zm101.05 45a142.39 142.39 0 0 0 20.26-45h35.43a88.37 88.37 0 0 1-55.69 45Z"
+                />
+              </svg>
+            </span>
+            Web Research
+            <h1
+              class="absolute -left-2 right-0 text-xs -top-7 w-fit bg-gray-800 text-gray-50 whitespace-nowrap px-1 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-200 pointer-events-none"
+            >
+              Query Web Research
+            </h1>
+          </button>
+          <button
+            type="button"
+            [ngClass]="{
+              active: placeholder === 'Query GPT-4 turbo',
+              nonActive: placeholder !== 'Query GPT-4 turbo'
+            }"
+            class="flex gap-0.5 items-center sm:justify-center text-gray-400 text-xs font-medium relative group transition-colors ease-in-out p-1 rounded duration-200"
+            (click)="changePlaceholderText('Query GPT-4 turbo')"
+          >
+            <span>
+              <svg
+                class="w-5 h-5 rotate-180"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="m9 4l2.5 5.5L17 12l-5.5 2.5L9 20l-2.5-5.5L1 12l5.5-2.5L9 4m0 4.83L8 11l-2.17 1L8 13l1 2.17L10 13l2.17-1L10 11L9 8.83M19 9l-1.26-2.74L15 5l2.74-1.25L19 1l1.25 2.75L23 5l-2.75 1.26L19 9m0 14l-1.26-2.74L15 19l2.74-1.25L19 15l1.25 2.75L23 19l-2.75 1.26L19 23Z"
+                />
+              </svg>
+            </span>
+            GPT-4 Turbo
+            <h1
+              class="absolute -left-2 right-0 text-xs -top-7 w-fit text-gray-50 bg-gray-800 whitespace-nowrap px-1 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-200 pointer-events-none"
+            >
+              Query GPT-4 turbo
+            </h1>
+          </button>
+        </div>
+        <div class="flex ps-0 space-x-1 rtl:space-x-reverse sm:ps-2">
+          <button type="button" class="text-gray-400">
+            <svg
+              class="w-6 h-6 rotate-45"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+            >
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-miterlimit="10"
+                stroke-width="32"
+                d="M216.08 192v143.85a40.08 40.08 0 0 0 80.15 0l.13-188.55a67.94 67.94 0 1 0-135.87 0v189.82a95.51 95.51 0 1 0 191 0V159.74"
+              />
+            </svg>
+          </button>
+          <button type="button" class="text-gray-400">
+            <svg
+              class="w-6 h-6"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M4 18.5v-13L19.423 12L4 18.5ZM5 17l11.85-5L5 7v3.885L9.846 12L5 13.115V17Zm0 0V7v10Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div *ngIf="toast">
+    <div
+      class="fixed bottom-24 left-0 py-4 right-0 mx-auto bg-white flex flex-col items-center w-full max-w-xs p-2 text-gray-500 rounded shadow overflow-hidden"
+    >
+      <div class="relative w-full flex items-center justify-between">
+        <div class="ms-3 text-sm font-normal capitalize">
+          Switching to {{ placeholder }}
+        </div>
+      </div>
+      <div
+        class="absolute translate-y-8 w-full bg-gray-200 rounded-full h-1.5 mb-4"
+      >
+        <div
+          class="bg-blue-600 h-1.5 rounded-full transition-all ease-in-out duration-200"
+          [style.width]="width + '%'"
+        ></div>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="selected"
+    class="fixed bottom-14 translate-x-16 transition-transform ease-in-out duration-200"
+  >
+    <app-chat-box-model></app-chat-box-model>
+  </div>
+</div>

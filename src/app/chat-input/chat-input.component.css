@@ -1,0 +1,12 @@
+.active {
+  @apply bg-blue-100 text-blue-600;
+}
+.nonActive {
+  @apply text-gray-400;
+}
+.focus {
+  @apply border-2 border-gray-600;
+}
+.nonFocus {
+  @apply border-2 border-gray-200;
+}
