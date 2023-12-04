@@ -1,0 +1,13 @@
+.scroll-bar {
+  scrollbar-width: auto;
+  scrollbar-color: #4f4f4f #ffffff;
+}
+.scroll-bar::-webkit-scrollbar {
+  @apply w-2;
+}
+.scroll-bar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+.scroll-bar::-webkit-scrollbar-thumb {
+  @apply bg-gray-700 rounded-xl border-2;
+}
